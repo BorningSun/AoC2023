@@ -1,29 +1,46 @@
-puzzle1input = "p1_input.txt"
+import re
 
-def solvePuzzle1():
-    listOfDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+puzzle1input = "p1_input.txt"
+test = "inputtest.txt" # gives 281
+
+def solvePuzzle1p1():
     resultDict = {}
-    listOfDoubleDigits = []
     result = 0
     with open(puzzle1input) as f:
         for line in f.readlines():
             for char in line:
-                if char in listOfDigits:
+                if char.isdigit():
                     if line in resultDict:
                         resultDict[line] = resultDict[line] + char
                     else:
                         resultDict[line] = char
-    for strDigits in resultDict.values():
+    for line, strDigits in resultDict.items():
         if len(strDigits) == 1:
-            listOfDoubleDigits.append(strDigits+strDigits)
+            resultDict[line] = int(strDigits+strDigits)
         else:
-            firstD, lastD = strDigits[0], strDigits[-1]
-            listOfDoubleDigits.append(firstD+lastD)
-    for n in range(1000):
-        listOfDoubleDigits[n] = int(listOfDoubleDigits[n])
-        result = result + listOfDoubleDigits[n]
+            resultDict[line] = int(strDigits[0] + strDigits[-1])
+        result = result + resultDict[line]
     print(result)
 
 
+#solvePuzzle1p1()
 
-solvePuzzle1()
+
+def solvePuzzle1p2():
+    paterns = {
+        "0":"zero",
+        "1":"one",
+        "2":"two",
+        "3":"three",
+        "4":"four",
+        "5":"five",
+        "6":"six",
+        "7":"seven",
+        "8":"eight",
+        "9":"nine"
+    }
+    with open(test) as f:
+        for line in f.readlines():
+            print(line)
+
+solvePuzzle1p2()
